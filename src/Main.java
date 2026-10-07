@@ -8,23 +8,23 @@ public class Main {
         System.out.println("Kiem thu du lieu");
 
         SalariedEmployee e001 = new SalariedEmployee(
-                "E001", "Nguyễn Minh An", "Đào tạo",
+                "E001", "Nguyen Chinh Thai", "Dao tao",
                 15_000_000, 2_000_000, 0);
-        e001.addBonus(1_000_000, "Thưởng hoàn thành KPI");
+        e001.addBonus(1_000_000, "Thuong hoan thanh KPI");
 
         HourlyEmployee e002 = new HourlyEmployee(
-                "E002", "Trần Thu Bình", "Hỗ trợ",
+                "E002", "Trần Nam Thanh", "Ho tro",
                 100_000, 150, 0);
-        e002.addBonus(500_000, "Thưởng chuyên cần");
+        e002.addBonus(500_000, "Thuong chuyen can");
 
         HourlyEmployee e003 = new HourlyEmployee(
-                "E003", "Lê Hoàng Chi", "Hỗ trợ",
+                "E003", "Bui The Hoang", "Ho tro",
                 100_000, 170, 0);
 
         SalesEmployee e004 = new SalesEmployee(
-                "E004", "Phạm Quốc Dũng", "Kinh doanh",
+                "E004", "Pham Thi Ninh", "Kinh doanh",
                 8_000_000, 200_000_000, 0.05, 0);
-        e004.addBonus(0.02, 50_000_000, "Thưởng vượt chỉ tiêu");
+        e004.addBonus(0.02, 50_000_000, "Thuong vuot chi tieu");
 
         Payroll payroll = new Payroll("2026-09");
         payroll.addEmployee(e001);
@@ -53,85 +53,85 @@ public class Main {
     private static void runBoundaryTests() {
 
         // T01: employeeId rỗng
-        test("T01 – employeeId rỗng", () -> new SalariedEmployee("", "Tên", 10_000_000));
+        test("T01 – employeeId rong", () -> new SalariedEmployee("", "Ten", 10_000_000));
 
         // T02: fullName rỗng
-        test("T02 – fullName rỗng", () -> new SalariedEmployee("X001", "", 10_000_000));
+        test("T02 – fullName rong", () -> new SalariedEmployee("X001", "", 10_000_000));
 
         // T03: addBonus âm
-        test("T03 – addBonus âm", () -> {
+        test("T03 – addBonus < 0", () -> {
             Employee e = new SalariedEmployee("X002", "Test", 5_000_000);
             e.addBonus(-100_000);
         });
 
         // T04: workedHours = 0 (biên dưới)
-        test("T04 – workedHours = 0 (hợp lệ)", () -> {
+        test("T04 – workedHours = 0 (hop le)", () -> {
             HourlyEmployee e = new HourlyEmployee("X003", "Test", 100_000, 0);
             System.out.printf("       grossPay = %,.0f đ%n", e.calculateGrossPay());
         }, false);
 
         // T05: workedHours = 160 (biên thường)
-        test("T05 – workedHours = 160 (biên, hợp lệ)", () -> {
+        test("T05 – workedHours = 160 (bien, hop le)", () -> {
             HourlyEmployee e = new HourlyEmployee("X004", "Test", 100_000, 160);
-            System.out.printf("       grossPay = %,.0f đ (mong đợi 16,000,000)%n",
+            System.out.printf("       grossPay = %,.0f đ (mong doi 16,000,000)%n",
                     e.calculateGrossPay());
         }, false);
 
         // T06: workedHours = 161 (bắt đầu OT)
-        test("T06 – workedHours = 161 (OT, hợp lệ)", () -> {
+        test("T06 – workedHours = 161 (OT, hop le)", () -> {
             HourlyEmployee e = new HourlyEmployee("X005", "Test", 100_000, 161);
-            System.out.printf("       grossPay = %,.0f đ (mong đợi 16,150,000)%n",
+            System.out.printf("       grossPay = %,.0f đ (mong doi 16,150,000)%n",
                     e.calculateGrossPay());
         }, false);
 
         // T07: workedHours = 250 (biên tối đa)
-        test("T07 – workedHours = 250 (hợp lệ)", () -> {
+        test("T07 – workedHours = 250 (hop le)", () -> {
             HourlyEmployee e = new HourlyEmployee("X006", "Test", 100_000, 250);
             System.out.printf("       grossPay = %,.0f đ%n", e.calculateGrossPay());
         }, false);
 
         // T08: workedHours = 251 (vượt max)
-        test("T08 – workedHours = 251 (lỗi)", () -> new HourlyEmployee("X007", "Test", 100_000, 251));
+        test("T08 – workedHours = 251 (loi)", () -> new HourlyEmployee("X007", "Test", 100_000, 251));
 
         // T09: commissionRate = 0 (lỗi)
-        test("T09 – commissionRate = 0 (lỗi)", () -> new SalesEmployee("X008", "Test", 5_000_000, 100_000_000, 0.0));
+        test("T09 – commissionRate = 0 (loi)", () -> new SalesEmployee("X008", "Test", 5_000_000, 100_000_000, 0.0));
 
         // T10: commissionRate = 0.3 (biên hợp lệ)
-        test("T10 – commissionRate = 0.3 (hợp lệ)", () -> {
+        test("T10 – commissionRate = 0.3 (hop le)", () -> {
             SalesEmployee e = new SalesEmployee("X009", "Test", 5_000_000, 100_000_000, 0.3);
             System.out.printf("       grossPay = %,.0f đ%n", e.calculateGrossPay());
         }, false);
 
         // T11: commissionRate = 0.31 (vượt biên)
-        test("T11 – commissionRate = 0.31 (lỗi)",
+        test("T11 – commissionRate = 0.31 (loi)",
                 () -> new SalesEmployee("X010", "Test", 5_000_000, 100_000_000, 0.31));
 
         // T12: addBonus rate = 0.5 (biên hợp lệ)
-        test("T12 – addBonus rate = 0.5 (hợp lệ)", () -> {
+        test("T12 – addBonus rate = 0.5 (hop le)", () -> {
             Employee e = new SalariedEmployee("X011", "Test", 5_000_000);
-            e.addBonus(0.5, 2_000_000, "Thưởng tối đa");
-            System.out.printf("       bonus = %,.0f đ (mong đợi 1,000,000)%n",
+            e.addBonus(0.5, 2_000_000, "Thuong toi da");
+            System.out.printf("       bonus = %,.0f đ (mong doi 1,000,000)%n",
                     e.getMonthlyBonus());
         }, false);
 
         // T13: addBonus rate = 0.51 (vượt biên)
         test("T13 – addBonus rate = 0.51 (lỗi)", () -> {
             Employee e = new SalariedEmployee("X012", "Test", 5_000_000);
-            e.addBonus(0.51, 2_000_000, "Thưởng vượt");
+            e.addBonus(0.51, 2_000_000, "Thuong vuot");
         });
 
         // T14: Thêm nhân viên trùng mã
-        test("T14 – Trùng mã nhân sự (từ chối)", () -> {
+        test("T14 – Trung ma nhan su (tu choi)", () -> {
             Payroll p = new Payroll("2026-10");
-            Employee a = new SalariedEmployee("DUP1", "Người A", 5_000_000);
-            Employee b = new SalariedEmployee("DUP1", "Người B", 6_000_000);
+            Employee a = new SalariedEmployee("DUP1", "Nguoi A", 5_000_000);
+            Employee b = new SalariedEmployee("DUP1", "Nguoi B", 6_000_000);
             p.addEmployee(a);
             boolean added = p.addEmployee(b);
-            System.out.printf("       Kết quả addEmployee lần 2: %b (mong đợi: false)%n", added);
+            System.out.printf("       Ket qua addEmployee lan 2: %b (mong doi: false)%n", added);
         }, false);
 
         // T15: displayPayroll với danh sách rỗng
-        test("T15 – Bảng lương rỗng", () -> {
+        test("T15 – Bang luong rong", () -> {
             Payroll p = new Payroll("2026-10");
             p.displayPayroll();
         }, false);
@@ -156,7 +156,7 @@ public class Main {
             if (expectException) {
                 System.out.printf("PASS (%s)%n", ex.getMessage());
             } else {
-                System.out.printf("FAIL (lỗi ngoài dự kiến: %s)%n", ex.getMessage());
+                System.out.printf("FAIL (loi ngoai du kien: %s)%n", ex.getMessage());
             }
         }
     }
