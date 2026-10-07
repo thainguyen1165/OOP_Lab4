@@ -34,9 +34,9 @@ public class Main {
 
         payroll.displayPayroll();
 
-        System.out.printf("%n%-25s : %,.0f đ  (mong đợi: 33,000,000)%n",
-                "Tổng phòng Hỗ trợ",
-                payroll.calculatePayrollByDepartment("Hỗ trợ"));
+        System.out.printf("%n%-25s : %,.0f đ  (mong doi: 33,000,000)%n",
+                "Tong phong ho tro",
+                payroll.calculatePayrollByDepartment("Ho tro"));
 
         assertGross("E001", e001.calculateGrossPay(), 18_000_000);
         assertGross("E002", e002.calculateGrossPay(), 15_500_000);
@@ -44,7 +44,7 @@ public class Main {
         assertGross("E004", e004.calculateGrossPay(), 19_000_000);
         assertGross("TOTAL", payroll.calculateTotalPayroll(), 70_000_000);
 
-        System.out.println("\nKIỂM THỬ BIÊN VÀ LỖI");
+        System.out.println("\nKIEM THU");
 
         runBoundaryTests();
 
@@ -53,12 +53,10 @@ public class Main {
     private static void runBoundaryTests() {
 
         // T01: employeeId rỗng
-        test("T01 – employeeId rỗng", () ->
-                new SalariedEmployee("", "Tên", 10_000_000));
+        test("T01 – employeeId rỗng", () -> new SalariedEmployee("", "Tên", 10_000_000));
 
         // T02: fullName rỗng
-        test("T02 – fullName rỗng", () ->
-                new SalariedEmployee("X001", "", 10_000_000));
+        test("T02 – fullName rỗng", () -> new SalariedEmployee("X001", "", 10_000_000));
 
         // T03: addBonus âm
         test("T03 – addBonus âm", () -> {
@@ -93,12 +91,10 @@ public class Main {
         }, false);
 
         // T08: workedHours = 251 (vượt max)
-        test("T08 – workedHours = 251 (lỗi)", () ->
-                new HourlyEmployee("X007", "Test", 100_000, 251));
+        test("T08 – workedHours = 251 (lỗi)", () -> new HourlyEmployee("X007", "Test", 100_000, 251));
 
         // T09: commissionRate = 0 (lỗi)
-        test("T09 – commissionRate = 0 (lỗi)", () ->
-                new SalesEmployee("X008", "Test", 5_000_000, 100_000_000, 0.0));
+        test("T09 – commissionRate = 0 (lỗi)", () -> new SalesEmployee("X008", "Test", 5_000_000, 100_000_000, 0.0));
 
         // T10: commissionRate = 0.3 (biên hợp lệ)
         test("T10 – commissionRate = 0.3 (hợp lệ)", () -> {
@@ -107,8 +103,8 @@ public class Main {
         }, false);
 
         // T11: commissionRate = 0.31 (vượt biên)
-        test("T11 – commissionRate = 0.31 (lỗi)", () ->
-                new SalesEmployee("X010", "Test", 5_000_000, 100_000_000, 0.31));
+        test("T11 – commissionRate = 0.31 (lỗi)",
+                () -> new SalesEmployee("X010", "Test", 5_000_000, 100_000_000, 0.31));
 
         // T12: addBonus rate = 0.5 (biên hợp lệ)
         test("T12 – addBonus rate = 0.5 (hợp lệ)", () -> {
@@ -165,10 +161,9 @@ public class Main {
         }
     }
 
-    /** So sánh grossPay với giá trị mong đợi (sai số ±1 đ) */
     private static void assertGross(String label, double actual, double expected) {
         boolean pass = Math.abs(actual - expected) < 1.0;
         System.out.printf("%-10s : %,.0f đ  %s%n",
-                label, actual, pass ? "PASS" : "FAIL (mong đợi " + expected + ")");
+                label, actual, pass ? "PASS" : "FAIL (mong doi " + expected + ")");
     }
 }

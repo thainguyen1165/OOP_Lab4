@@ -15,11 +15,11 @@ public abstract class Employee {
 
     public Employee(String employeeId, String fullName, String department) {
         if (employeeId == null || employeeId.isBlank())
-            throw new IllegalArgumentException("Mã nhân sự không được rỗng.");
+            throw new IllegalArgumentException("Ma nhan su khong duoc rong");
         if (fullName == null || fullName.isBlank())
-            throw new IllegalArgumentException("Họ tên không được rỗng.");
+            throw new IllegalArgumentException("Ho ten khong duoc rong");
         if (department == null || department.isBlank())
-            throw new IllegalArgumentException("Phòng ban không được rỗng.");
+            throw new IllegalArgumentException("Phong ban khong duoc rong");
 
         this.employeeId = employeeId.trim();
         this.fullName = fullName.trim();
@@ -29,29 +29,29 @@ public abstract class Employee {
 
     public void addBonus(double amount) {
         if (amount <= 0)
-            throw new IllegalArgumentException("Khoản thưởng phải lớn hơn 0.");
+            throw new IllegalArgumentException("Khoan thuong >= 0");
         this.monthlyBonus += amount;
     }
 
     public void addBonus(double amount, String reason) {
         if (reason == null || reason.isBlank())
-            throw new IllegalArgumentException("Lý do thưởng không được rỗng.");
+            throw new IllegalArgumentException("Ly do thuong khong duoc rong");
         addBonus(amount);
-        System.out.printf("  [Thưởng] %s | +%,.0f đ | Lý do: %s%n",
+        System.out.printf("  [Thuong] %s | +%,.0f đ | Lý do: %s%n",
                 fullName, amount, reason);
     }
 
     public void addBonus(double rate, double referenceAmount, String reason) {
         if (rate <= 0 || rate > 0.5)
-            throw new IllegalArgumentException("Tỷ lệ thưởng phải trong khoảng (0, 0.5].");
+            throw new IllegalArgumentException("Ty le thuong phai thuoc (0, 0.5].");
         if (referenceAmount <= 0)
-            throw new IllegalArgumentException("Giá trị tham chiếu phải lớn hơn 0.");
+            throw new IllegalArgumentException("Gia tri tham chieu > 0");
         if (reason == null || reason.isBlank())
-            throw new IllegalArgumentException("Lý do thưởng không được rỗng.");
+            throw new IllegalArgumentException("Ly do thuong khong duoc rong");
 
         double amount = rate * referenceAmount;
         addBonus(amount);
-        System.out.printf("  [Thưởng] %s | %.0f%% × %,.0f = +%,.0f đ | Lý do: %s%n",
+        System.out.printf("  [Thuong] %s | %.0f%% × %,.0f = +%,.0f đ | Ly do: %s%n",
                 fullName, rate * 100, referenceAmount, amount, reason);
     }
 

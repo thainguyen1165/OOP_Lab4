@@ -20,10 +20,10 @@ public class HourlyEmployee extends Employee {
             double hourlyRate, double workedHours, double bonus) {
         super(id, name, department);
         if (hourlyRate <= 0)
-            throw new IllegalArgumentException("Đơn giá giờ phải lớn hơn 0.");
+            throw new IllegalArgumentException("Don gia > 0");
         if (workedHours < 0 || workedHours > MAX_HOURS)
             throw new IllegalArgumentException(
-                    "Số giờ làm phải trong khoảng [0, 250].");
+                    "So gio lam thuoc [0, 250].");
 
         this.hourlyRate = hourlyRate;
         this.workedHours = workedHours;
@@ -58,22 +58,22 @@ public class HourlyEmployee extends Employee {
                 : 0;
 
         System.out.println("─────────────────────────────────────────────");
-        System.out.printf("%-20s : %s%n", "Mã nhân sự", getEmployeeId());
-        System.out.printf("%-20s : %s%n", "Họ tên", getFullName());
-        System.out.printf("%-20s : %s%n", "Phòng ban", getDepartment());
-        System.out.printf("%-20s : %s%n", "Loại", getEmployeeType());
-        System.out.printf("%-20s : %,.0f đ/h%n", "Đơn giá", hourlyRate);
-        System.out.printf("%-20s : %.0f h%n", "Số giờ", workedHours);
-        System.out.printf("%-20s : %,.0f đ%n", "Lương thường", regularPay);
+        System.out.printf("%-20s : %s%n", "Ma nhan su", getEmployeeId());
+        System.out.printf("%-20s : %s%n", "Ho ten", getFullName());
+        System.out.printf("%-20s : %s%n", "Phong ban", getDepartment());
+        System.out.printf("%-20s : %s%n", "Loai", getEmployeeType());
+        System.out.printf("%-20s : %,.0f đ/h%n", "Đon gia", hourlyRate);
+        System.out.printf("%-20s : %.0f h%n", "So gio", workedHours);
+        System.out.printf("%-20s : %,.0f đ%n", "Luong thuong", regularPay);
         if (hasOvertime)
-            System.out.printf("%-20s : %,.0f đ%n", "Lương OT", overtimePay);
-        System.out.printf("%-20s : %,.0f đ%n", "Thưởng", getMonthlyBonus());
-        System.out.printf("%-20s : %,.0f đ%n", "▶ Thu nhập", calculateGrossPay());
+            System.out.printf("%-20s : %,.0f đ%n", "Luong OT", overtimePay);
+        System.out.printf("%-20s : %,.0f đ%n", "Thuong", getMonthlyBonus());
+        System.out.printf("%-20s : %,.0f đ%n", "▶ Thu nhap", calculateGrossPay());
     }
 
     public void setWorkedHours(double workedHours) {
         if (workedHours < 0 || workedHours > MAX_HOURS)
-            throw new IllegalArgumentException("Số giờ làm phải trong khoảng [0, 250].");
+            throw new IllegalArgumentException("So gio lam thuoc [0, 250].");
         this.workedHours = workedHours;
     }
 

@@ -1,7 +1,7 @@
 
 /**
-Nguyễn Phúc Trường An
-202419022
+ * Nguyen Chinh Thai
+ * 202419094
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class Payroll {
 
     public Payroll(String period) {
         if (period == null || period.isBlank())
-            throw new IllegalArgumentException("Kỳ lương không được rỗng.");
+            throw new IllegalArgumentException("Ky luong khong duoc rong");
         this.period = period.trim();
         this.employees = new ArrayList<>();
     }
@@ -22,7 +22,7 @@ public class Payroll {
         if (employee == null)
             return false;
         if (findEmployee(employee.getEmployeeId()) != null) {
-            System.out.printf("⚠ Nhân sự [%s] đã tồn tại trong bảng lương %s.%n",
+            System.out.printf("⚠ Nhan su [%s] da ton tai trong bang luong %s.%n",
                     employee.getEmployeeId(), period);
             return false;
         }
@@ -70,23 +70,23 @@ public class Payroll {
 
     public void displayPayroll() {
         System.out.println("═════════════════════════════════════════════");
-        System.out.printf("     BẢNG LƯƠNG KỲ %s  (%d nhân sự)%n",
+        System.out.printf("        BANG LUONG KY %s  (%d nhan su)%n",
                 period, employees.size());
         System.out.println("═════════════════════════════════════════════");
 
         if (employees.isEmpty()) {
-            System.out.println("  (Danh sách nhân sự trống)");
+            System.out.println("  (Danh sach nhan su khong duoc trong)");
         } else {
             for (Employee e : employees) {
                 e.displayPayrollInfo();
             }
             System.out.println("─────────────────────────────────────────────");
-            System.out.printf("%-20s : %,.0f đ%n", "TỔNG BẢNG LƯƠNG", calculateTotalPayroll());
+            System.out.printf("%-20s : %,.0f đ%n", "TONG BANG LUONG", calculateTotalPayroll());
 
             Employee top = findHighestPaidEmployee();
             if (top != null) {
                 System.out.printf("%-20s : %s (%,.0f đ)%n",
-                        "Thu nhập cao nhất", top.getFullName(), top.calculateGrossPay());
+                        "Thu nhap cao nhat", top.getFullName(), top.calculateGrossPay());
             }
         }
         System.out.println("═════════════════════════════════════════════");

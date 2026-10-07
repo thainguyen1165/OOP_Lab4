@@ -1,27 +1,23 @@
 /**
- * Nguyễn Phúc Trường An
- * 202419022
+ * Nguyen Chinh Thai
+ * 202419094
  */
 public class SalariedEmployee extends Employee {
 
     private double monthlySalary;
     private double responsibilityAllowance;
 
-    // ── Constructor nạp chồng ────────────────────────────────────────────────
-
-    /** Constructor rút gọn: phụ cấp = 0, department = "Unassigned" */
     public SalariedEmployee(String id, String name, double monthlySalary) {
         this(id, name, "Unassigned", monthlySalary, 0, 0);
     }
 
-    /** Constructor đầy đủ */
     public SalariedEmployee(String id, String name, String department,
             double monthlySalary, double allowance, double bonus) {
         super(id, name, department);
         if (monthlySalary < 0)
-            throw new IllegalArgumentException("Lương tháng không được âm.");
+            throw new IllegalArgumentException("Luong >= 0.");
         if (allowance < 0)
-            throw new IllegalArgumentException("Phụ cấp không được âm.");
+            throw new IllegalArgumentException("Phu cap >= 0");
 
         this.monthlySalary = monthlySalary;
         this.responsibilityAllowance = allowance;
@@ -29,8 +25,6 @@ public class SalariedEmployee extends Employee {
         if (bonus > 0)
             addBonus(bonus);
     }
-
-    // ── Override ─────────────────────────────────────────────────────────────
 
     @Override
     public double calculateGrossPay() {
@@ -45,17 +39,15 @@ public class SalariedEmployee extends Employee {
     @Override
     public void displayPayrollInfo() {
         System.out.println("─────────────────────────────────────────────");
-        System.out.printf("%-20s : %s%n", "Mã nhân sự", getEmployeeId());
-        System.out.printf("%-20s : %s%n", "Họ tên", getFullName());
-        System.out.printf("%-20s : %s%n", "Phòng ban", getDepartment());
-        System.out.printf("%-20s : %s%n", "Loại", getEmployeeType());
-        System.out.printf("%-20s : %,.0f đ%n", "Lương cơ bản", monthlySalary);
-        System.out.printf("%-20s : %,.0f đ%n", "Phụ cấp", responsibilityAllowance);
-        System.out.printf("%-20s : %,.0f đ%n", "Thưởng", getMonthlyBonus());
-        System.out.printf("%-20s : %,.0f đ%n", "▶ Thu nhập", calculateGrossPay());
+        System.out.printf("%-20s : %s%n", "Ma nhan su", getEmployeeId());
+        System.out.printf("%-20s : %s%n", "Ho ten", getFullName());
+        System.out.printf("%-20s : %s%n", "Phong ban", getDepartment());
+        System.out.printf("%-20s : %s%n", "Loai", getEmployeeType());
+        System.out.printf("%-20s : %,.0f đ%n", "Luong co ban", monthlySalary);
+        System.out.printf("%-20s : %,.0f đ%n", "phu cap", responsibilityAllowance);
+        System.out.printf("%-20s : %,.0f đ%n", "Thuong", getMonthlyBonus());
+        System.out.printf("%-20s : %,.0f đ%n", "▶ Thu nhap", calculateGrossPay());
     }
-
-    // ── Getters ───────────────────────────────────────────────────────────────
 
     public double getMonthlySalary() {
         return monthlySalary;
